@@ -1,5 +1,6 @@
 package com.example.luckynumberapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -25,6 +26,9 @@ class LuckyNumberAcitvity : AppCompatActivity() {
 //        Toast.makeText(this,""+random_num, Toast.LENGTH_LONG).show()
         luckyNum.setText(""+random_num) //a string must be added as the activity will not redirect to an integer
 
+        sharebtn.setOnClickListener(){
+            shareData(user_name, random_num)
+        }
     }
 
     fun receiveUserName():String{
@@ -39,5 +43,13 @@ class LuckyNumberAcitvity : AppCompatActivity() {
 //        assertEquals { randomInteger <= 12 }
         val random = Random.nextInt(1000)
         return random
+    }
+
+    fun shareData(username: String, num:Int){
+        var i  = Intent(Intent.ACTION_SEND)
+        i.setType("text/plain")
+        i.putExtra(Intent.EXTRA_SUBJECT, "$username is lucky today")
+        i.putExtra(Intent.EXTRA_TEXT, "The lucky number is $num")
+        startActivity(i)
     }
 }
